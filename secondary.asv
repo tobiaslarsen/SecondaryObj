@@ -1,3 +1,9 @@
+% to do
+% make position of pairs more random and not always top/bottom left/right
+% prob is fixed length and fixed for stimuli sets
+% 
+
+
 % psychExpInit;
 Screen('Preference', 'SkipSyncTests', 2); % 2 to skip tests, as we don't need milisecond precision, 0 otherwise
 screens=Screen('Screens');
@@ -8,9 +14,9 @@ KbName('UnifyKeyNames');
 center=[xc yc xc yc];
 maxConditions=20;
 condNums=10:29;
-numEpisodes=12;
-numStimSets=6;
-numTrialsPerC=2;
+numEpisodes=20;
+numStimSets=4;
+numTrialsPerC=10;
 stimWidth=135;
 stimHeight=102;
 stimRect=center + [floor(-stimWidth/2) floor(-stimHeight/2) floor(stimWidth/2) floor(stimHeight/2)];
@@ -30,7 +36,7 @@ cond(end+1)=cond(end-1);  % to set up secondary stimuli in the final episode eve
 % prob=[0.8,0.2; 0.4,0.6; 0.9,0.1; 0.75,0.25; 0.75,0.25; 0.75,0.25; 0.75,0.25]; % needs to be the length of [cond+1,2]
 prob=round([0.8,0.2; 0.4,0.6; 0.9,0.1; 0.75,0.25; 0.75,0.25; 0.75,0.25; 0.75,0.25]); % for testing purposes as the payoffs become deterministic
 
-npair=condNums(randperm(maxConditions,numEpisodes+1));    % random permutation of the integers 1:numConditions, needed to randomize stimuli between subjects 
+npair=condNums(randperm(maxConditions,numStimSets+1));    % random permutation of the integers 1:numConditions, needed to randomize stimuli between subjects 
 
 for k=1:numStimSets+1
     nstim=randperm(2); % vector of 2 randomized 1 and 2
