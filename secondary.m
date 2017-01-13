@@ -55,8 +55,8 @@ stimYseparation=round((stimHeight)/2);
 
 stimRX=round(rand(numTrialsPerC,numEpisodes))*2-1;  % randomizing location of Rew stimuli
 stimRY=round(rand(numTrialsPerC,numEpisodes))*2-1;
-stimSX=round(rand(numTrialsPerC,numEpisodes))*2-1;  % randomizing location of Sec stimuli
-stimSY=round(rand(numTrialsPerC,numEpisodes))*2-1;
+% stimSX=round(rand(numTrialsPerC,numEpisodes))*2-1;  % randomizing location of Sec stimuli
+% stimSY=round(rand(numTrialsPerC,numEpisodes))*2-1;
 
 if(ispc)
     RestrictKeysForKbCheck([32, 37, 38, 39, 40]);
@@ -64,20 +64,35 @@ elseif(ismac)
     RestrictKeysForKbCheck([44, 79, 80, 81, 82]);
 end
 
+
 for episode=1:numEpisodes
     for numTri=1:numTrialsPerC
-        Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0-stimYseparation) xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
-        Screen('DrawTexture', win, texStim_A{cond(episode)+1,1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
-        
-        Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0-stimYseparation) -1*xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
-        Screen('DrawTexture', win, texStim_B{cond(episode)+1,1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+        sideFlip=rand;
+        if sideFlip>0.5 % 
+            Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0-stimYseparation) xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+            Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
 
-        Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[(0-stimXseparation) ySpan*stimRY(numTri,episode) (0-stimXseparation) ySpan*stimRY(numTri,episode)]);  %
-        Screen('DrawTexture', win, texStim_B{cond(episode)+1,1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
-        
-        Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[(0-stimXseparation) -1*ySpan*stimRY(numTri,episode) (0-stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
-        Screen('DrawTexture', win, texStim_A{cond(episode)+1,1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+            Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0-stimYseparation) -1*xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+            Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
 
+            Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[(0-stimXseparation) ySpan*stimRY(numTri,episode) (0-stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+            Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+
+            Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[(0-stimXseparation) -1*ySpan*stimRY(numTri,episode) (0-stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+            Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+        else
+            Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0-stimYseparation) xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+            Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+
+            Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0-stimYseparation) -1*xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+            Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+
+            Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[(0-stimXseparation) ySpan*stimRY(numTri,episode) (0-stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+            Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+
+            Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[(0-stimXseparation) -1*ySpan*stimRY(numTri,episode) (0-stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+            Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %        
+        end
         Screen('Flip',win);
 
         [keyTime, keyCode]=KbWait([],2);
@@ -85,60 +100,114 @@ for episode=1:numEpisodes
         if(iscell(keyName))
             keyName=keyName{1};
         end
-
+        
+        if sideFlip>0.5
             switch keyName
                 case 'LeftArrow'
                     if (stimRX(numTri,episode)>0)
                         Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0-stimYseparation) -1*xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
-                        Screen('DrawTexture', win, texStim_B{cond(episode)+1,1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
                         primChoice(numTri,episode)=2;
                         secoChoice(numTri,episode)=2;
                     else
                         Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0-stimYseparation) xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
-                        Screen('DrawTexture', win, texStim_A{cond(episode)+1,1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
                         primChoice(numTri,episode)=1;
                         secoChoice(numTri,episode)=1;                        
                     end
                 case 'RightArrow'
                     if (stimRX(numTri,episode)<0)
                         Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0-stimYseparation) -1*xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
-                        Screen('DrawTexture', win, texStim_B{cond(episode)+1,1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
                         primChoice(numTri,episode)=2;
                         secoChoice(numTri,episode)=2;                        
                     else
                         Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0-stimYseparation) xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
-                        Screen('DrawTexture', win, texStim_A{cond(episode)+1,1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
                         primChoice(numTri,episode)=1;
                         secoChoice(numTri,episode)=1;                        
                     end
                 case 'UpArrow'
                     if (stimRY(numTri,episode)<0)
                         Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[(0-stimXseparation) ySpan*stimRY(numTri,episode) (0-stimXseparation) ySpan*stimRY(numTri,episode)]);  %
-                        Screen('DrawTexture', win, texStim_B{cond(episode)+1,1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
                         primChoice(numTri,episode)=1;
                         secoChoice(numTri,episode)=2;                        
                     else
                         Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[(0-stimXseparation) -1*ySpan*stimRY(numTri,episode) (0-stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
-                        Screen('DrawTexture', win, texStim_A{cond(episode)+1,1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
                         primChoice(numTri,episode)=2;
                         secoChoice(numTri,episode)=1;                        
                     end
                 case 'DownArrow'
                     if (stimRY(numTri,episode)>0)
                         Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[(0-stimXseparation) ySpan*stimRY(numTri,episode) (0-stimXseparation) ySpan*stimRY(numTri,episode)]);  %
-                        Screen('DrawTexture', win, texStim_B{cond(episode)+1,1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
                         primChoice(numTri,episode)=1;
                         secoChoice(numTri,episode)=2;                        
                     else
                         Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[(0-stimXseparation) -1*ySpan*stimRY(numTri,episode) (0-stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
-                        Screen('DrawTexture', win, texStim_A{cond(episode)+1,1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
                         primChoice(numTri,episode)=2;
                         secoChoice(numTri,episode)=1;                        
                     end                    
                 otherwise
                     
             end
-        
+        else
+            switch keyName
+                case 'LeftArrow'
+                    if (stimRX(numTri,episode)>0)
+                        Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0-stimYseparation) -1*xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        primChoice(numTri,episode)=2;
+                        secoChoice(numTri,episode)=1;
+                    else
+                        Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0-stimYseparation) xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        primChoice(numTri,episode)=1;
+                        secoChoice(numTri,episode)=2;                        
+                    end
+                case 'RightArrow'
+                    if (stimRX(numTri,episode)<0)
+                        Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0-stimYseparation) -1*xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[-1*xSpan*stimRX(numTri,episode) (0+stimYseparation) -1*xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        primChoice(numTri,episode)=2;
+                        secoChoice(numTri,episode)=1;                        
+                    else
+                        Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0-stimYseparation) xSpan*stimRX(numTri,episode) (0-stimYseparation)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[xSpan*stimRX(numTri,episode) (0+stimYseparation) xSpan*stimRX(numTri,episode) (0+stimYseparation)]);  %
+                        primChoice(numTri,episode)=1;
+                        secoChoice(numTri,episode)=2;                        
+                    end
+                case 'UpArrow'
+                    if (stimRY(numTri,episode)<0)
+                        Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[(0-stimXseparation) ySpan*stimRY(numTri,episode) (0-stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+                        primChoice(numTri,episode)=1;
+                        secoChoice(numTri,episode)=1;                        
+                    else
+                        Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[(0-stimXseparation) -1*ySpan*stimRY(numTri,episode) (0-stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+                        primChoice(numTri,episode)=2;
+                        secoChoice(numTri,episode)=2;                        
+                    end
+                case 'DownArrow'
+                    if (stimRY(numTri,episode)>0)
+                        Screen('DrawTexture', win, texStim_A{cond(episode),1}, [], stimRect+[(0-stimXseparation) ySpan*stimRY(numTri,episode) (0-stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_A{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) ySpan*stimRY(numTri,episode) (0+stimXseparation) ySpan*stimRY(numTri,episode)]);  %
+                        primChoice(numTri,episode)=1;
+                        secoChoice(numTri,episode)=1;                        
+                    else
+                        Screen('DrawTexture', win, texStim_B{cond(episode),1}, [], stimRect+[(0-stimXseparation) -1*ySpan*stimRY(numTri,episode) (0-stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+                        Screen('DrawTexture', win, texStim_B{cond(episode+1),1}, [], stimRect+[(0+stimXseparation) -1*ySpan*stimRY(numTri,episode) (0+stimXseparation) -1*ySpan*stimRY(numTri,episode)]);  %
+                        primChoice(numTri,episode)=2;
+                        secoChoice(numTri,episode)=2;                        
+                    end                    
+                otherwise
+                    
+            end
+        end
             Screen('Flip',win);
             WaitSecs(1);
             primWin(numTri,episode)=double(rand<prob(cond(episode),primChoice(numTri,episode)));
